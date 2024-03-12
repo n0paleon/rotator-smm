@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"log"
+	"time"
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
@@ -19,6 +20,9 @@ func Start () {
 		EnablePrintRoutes: true,
 		JSONEncoder: json.Marshal,
 		JSONDecoder: json.Unmarshal,
+		Prefork: false, // set true if you want the app run in multi process
+		StrictRouting: true,
+		WriteTimeout: 30 * time.Second,
 	})
 
 	api.Routes(app)
