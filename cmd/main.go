@@ -6,9 +6,9 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/handlebars/v2"
 
-	"RotatorSMM/api"
-	"RotatorSMM/web"
+	services "RotatorSMM/cmd/router"
 )
 
 
@@ -23,10 +23,14 @@ func Start () {
 		Prefork: false, // set true if you want the app run in multi process
 		StrictRouting: true,
 		WriteTimeout: 30 * time.Second,
+		Views: handlebars.New("./web/templates", ".hbs"),
 	})
 
-	api.Routes(app)
-	web.Routes(app)
+	// set static route and directory
+	app.Static("/static", "./assets")
+
+	services.Web(app)
+	services.Api(app)
 
 	log.Fatal(app.Listen(":3000"))
 }
