@@ -1,4 +1,6 @@
 tmp/
-.idea/
+/.idea/
+/.vscode/
+/.vs/
 
-.air.toml
+*.air.toml
