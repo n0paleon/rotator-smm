@@ -1,6 +1,8 @@
 package router
 
 import (
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/monitor"
 )
@@ -16,6 +18,7 @@ func Web(app *fiber.App) {
 	app.Get("/stats", monitor.New(
 		monitor.Config{
 			Title: "Turu API monitor page",
+			Refresh: 1 * time.Second,
 		},
 	)).Name("Monitor API")
 }

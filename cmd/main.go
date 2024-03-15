@@ -7,10 +7,19 @@ import (
 
 	services "RotatorSMM/cmd/router"
 	"RotatorSMM/configs"
+	"RotatorSMM/pkg/database"
+	"RotatorSMM/pkg/database/migrations"
 )
 
 
 func Start () {
+	// load database
+	database.Init()
+	// migrate database
+	migrations.Users()
+	// close database
+	defer database.Close()
+
 	// set up new fiber instance
 	app := fiber.New(configs.Fiber())
 
